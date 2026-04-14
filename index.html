@@ -1,0 +1,547 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Debug Colectiva 🐞</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,400;0,700;0,900;1,400&family=DM+Sans:wght@300;400;500;700&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      /* Paleta oficial Debug Colectiva */
+      --pink:      #D81B60;  /* rosa fuerte */
+      --yellow:    #F9C228;  /* amarillo */
+      --lavender:  #B39DDB;  /* lila suave */
+      --babyblue:  #BBDEFB;  /* celeste */
+      --black:     #212121;  /* negro */
+      --lilac:     #CE93D8;  /* lila medio */
+      --salmon:    #EF9A9A;  /* salmón */
+      --plum:      #4A148C;  /* morado oscuro */
+      --purple:    #9C27B0;  /* morado */
+
+      --ink:   #212121;
+      --cream: #FDFAF3;
+      --soft:  #F8F4FF;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--cream);
+      color: var(--ink);
+      overflow-x: hidden;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 1rem 3rem;
+      background: rgba(253,250,243,0.92);
+      backdrop-filter: blur(14px);
+      border-bottom: 2.5px solid var(--ink);
+    }
+    .nav-logo img { height: 36px; display: block; }
+    nav ul { list-style: none; display: flex; gap: 2.5rem; align-items: center; }
+    nav ul a {
+      text-decoration: none; color: var(--ink);
+      font-weight: 600; font-size: .92rem;
+      position: relative; padding-bottom: 3px;
+    }
+    nav ul a::after {
+      content: ''; position: absolute; bottom: 0; left: 0;
+      width: 0; height: 2.5px; background: var(--pink);
+      transition: width .3s;
+    }
+    nav ul a:hover::after { width: 100%; }
+    .nav-btn {
+      display: inline-block;
+      background: var(--pink); color: #fff !important;
+      padding: .4rem 1.1rem; border-radius: 3px;
+      font-weight: 700 !important; font-size: .85rem !important;
+      text-decoration: none; border: 2px solid var(--pink);
+      transition: background .2s, transform .2s;
+    }
+    .nav-btn::after { display: none !important; }
+    .nav-btn:hover { background: var(--plum); border-color: var(--plum); transform: translateY(-2px); }
+
+    /* ── HERO ── */
+    #hero {
+      min-height: 100vh;
+      padding: 9rem 3rem 5rem;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      align-items: center; gap: 3rem;
+      position: relative; overflow: hidden;
+    }
+
+    .hero-blobs { position: absolute; inset: 0; pointer-events: none; z-index: 0; }
+    .blob {
+      position: absolute; border-radius: 50%;
+      filter: blur(80px); opacity: .28;
+      animation: drift 12s ease-in-out infinite alternate;
+    }
+    .blob1 { width:560px; height:560px; background:var(--pink);    top:-100px; right:-120px; animation-delay:0s; }
+    .blob2 { width:420px; height:420px; background:var(--lavender); bottom:40px; left:-80px;  animation-delay:-4s; }
+    .blob3 { width:320px; height:320px; background:var(--yellow);   top:45%; right:28%;      animation-delay:-8s; }
+
+    @keyframes drift {
+      from { transform: translate(0,0) scale(1); }
+      to   { transform: translate(28px,18px) scale(1.06); }
+    }
+
+    .hero-text { position: relative; z-index: 1; }
+
+    .hero-tag {
+      display: inline-block;
+      background: var(--ink); color: var(--yellow);
+      font-size: .75rem; font-weight: 700;
+      letter-spacing: .12em; text-transform: uppercase;
+      padding: .4rem 1rem; border-radius: 2px;
+      margin-bottom: 1.6rem;
+    }
+
+    h1 {
+      font-family: 'Fraunces', serif;
+      font-size: clamp(3rem, 6vw, 5.5rem);
+      font-weight: 900; line-height: 1.05;
+      margin-bottom: 1.5rem;
+    }
+    h1 em {
+      font-style: italic; color: var(--pink);
+      position: relative;
+    }
+    h1 em::after {
+      content: ''; position: absolute;
+      bottom: 4px; left: 0; right: 0;
+      height: 5px; background: var(--yellow);
+      transform: skewX(-8deg);
+    }
+
+    .hero-desc {
+      font-size: 1.1rem; line-height: 1.75;
+      max-width: 490px; color: #444;
+      margin-bottom: 2.5rem;
+    }
+
+    .hero-ctas { display: flex; gap: 1rem; flex-wrap: wrap; }
+
+    .btn {
+      display: inline-block; padding: .85rem 2rem;
+      font-weight: 700; font-size: .95rem;
+      text-decoration: none; border-radius: 3px;
+      transition: transform .2s, box-shadow .2s;
+    }
+    .btn:hover { transform: translateY(-3px); box-shadow: 0 8px 24px rgba(0,0,0,.14); }
+    .btn-primary  { background: var(--pink);  color: #fff; border: 2px solid var(--pink); }
+    .btn-secondary{ background: transparent;  color: var(--ink); border: 2px solid var(--ink); }
+
+    .hero-visual {
+      position: relative; z-index: 1;
+      display: flex; justify-content: center; align-items: center;
+    }
+    .hero-card {
+      background: var(--ink); color: var(--cream);
+      padding: 2.5rem; border-radius: 16px; max-width: 390px;
+      position: relative;
+    }
+    .hero-card::before {
+      content: ''; position: absolute; inset: -4px; border-radius: 18px;
+      background: linear-gradient(135deg, var(--pink), var(--purple), var(--yellow));
+      z-index: -1;
+    }
+    .hero-card h3 { font-family:'Fraunces',serif; font-size:1.2rem; margin-bottom:.5rem; }
+    .hero-card p  { font-size:.88rem; color:#ccc; line-height:1.6; }
+    .stat-grid { display:grid; grid-template-columns:1fr 1fr; gap:1.2rem; margin-top:1.5rem; }
+    .stat {
+      background: rgba(255,255,255,.06);
+      border: 1px solid rgba(255,255,255,.1);
+      border-radius: 10px; padding: 1.2rem 1rem; text-align: center;
+    }
+    .stat-num {
+      font-family:'Fraunces',serif; font-size:2.4rem; font-weight:900; line-height:1;
+    }
+    .c-pink   { color: var(--pink); }
+    .c-teal   { color: #80CBC4; }
+    .c-yellow { color: var(--yellow); }
+    .c-lav    { color: var(--lavender); }
+    .stat-label { font-size:.76rem; color:#aaa; margin-top:.3rem; }
+
+    /* ── NOSOTRAS ── */
+    #nosotras {
+      padding: 6rem 3rem;
+      background: var(--ink); color: var(--cream);
+      position: relative; overflow: hidden;
+    }
+    #nosotras::before {
+      content: '"Debug"';
+      position: absolute; right:-1rem; top:50%;
+      transform: translateY(-50%) rotate(90deg);
+      font-family:'Fraunces',serif; font-size:14rem; font-weight:900;
+      color: rgba(255,255,255,.025); white-space:nowrap; pointer-events:none;
+    }
+    .section-label {
+      font-size:.72rem; font-weight:700; letter-spacing:.15em; text-transform:uppercase;
+      color: var(--lavender); margin-bottom:1rem;
+    }
+    h2 {
+      font-family:'Fraunces',serif;
+      font-size: clamp(2rem,4vw,3.5rem);
+      font-weight:900; line-height:1.1; margin-bottom:1.5rem;
+    }
+    .about-grid { display:grid; grid-template-columns:1fr 1fr; gap:4rem; align-items:start; }
+    .about-text p { font-size:1.05rem; line-height:1.8; color:#ccc; margin-bottom:1.2rem; }
+
+    .values-list { list-style:none; margin-top:1rem; }
+    .values-list li { display:flex; align-items:flex-start; gap:1rem; margin-bottom:1.4rem; }
+    .values-list .icon {
+      min-width:36px; height:36px; border-radius:8px;
+      display:flex; align-items:center; justify-content:center; font-size:1.1rem;
+    }
+    .vi1 { background:var(--pink); }
+    .vi2 { background:var(--plum); }
+    .vi3 { background:var(--purple); }
+    .vi4 { background:#2E7D32; }
+    .vi5 { background:#F57C00; }
+    .values-list strong { display:block; font-size:.95rem; color:var(--cream); margin-bottom:.2rem; }
+    .values-list span   { font-size:.84rem; color:#999; line-height:1.5; }
+
+    /* ── PROYECTOS ── */
+    #proyectos { padding:6rem 3rem; background:var(--cream); }
+    .projects-header {
+      display:flex; justify-content:space-between; align-items:flex-end;
+      margin-bottom:3rem; flex-wrap:wrap; gap:1rem;
+    }
+    .projects-grid {
+      display:grid; grid-template-columns:repeat(auto-fill,minmax(290px,1fr)); gap:1.5rem;
+    }
+    .project-card {
+      border: 2.5px solid var(--ink); border-radius:12px;
+      padding:2rem; position:relative; overflow:hidden;
+      transition: transform .25s, box-shadow .25s;
+      background: #fff;
+    }
+    .project-card:hover { transform:translateY(-6px); box-shadow:7px 7px 0 var(--ink); }
+    .accent-bar { position:absolute; top:0; left:0; right:0; height:5px; }
+    .project-card:nth-child(1) .accent-bar { background:var(--pink); }
+    .project-card:nth-child(2) .accent-bar { background:var(--purple); }
+    .project-card:nth-child(3) .accent-bar { background:var(--plum); }
+    .project-card:nth-child(4) .accent-bar { background:var(--lavender); }
+    .project-card h3 { font-family:'Fraunces',serif; font-size:1.2rem; font-weight:700; margin:.5rem 0 .8rem; }
+    .project-card p  { font-size:.87rem; color:#555; line-height:1.6; }
+    .project-card a  {
+      display:inline-flex; align-items:center; gap:.4rem;
+      margin-top:1.2rem; font-size:.82rem; font-weight:700;
+      text-decoration:none; color:var(--pink);
+    }
+    .project-card a:hover { text-decoration:underline; }
+    .project-emoji { font-size:2rem; }
+
+    /* ── EQUIPO ── */
+    #equipo { padding:6rem 3rem; background:var(--soft); }
+    .team-intro { max-width:600px; margin-bottom:3.5rem; }
+    .team-intro p { color:#555; font-size:1.05rem; line-height:1.7; margin-top:.8rem; }
+
+    .team-grid {
+      display:grid; grid-template-columns:repeat(6,1fr); gap:1.2rem;
+    }
+    @media (max-width:1100px) {
+      .team-grid { grid-template-columns:repeat(3,1fr); }
+    }
+    @media (max-width:600px) {
+      .team-grid { grid-template-columns:repeat(2,1fr); }
+    }
+    .member-card {
+      background:#fff; border:2.5px solid var(--ink);
+      border-radius:12px; padding:1.5rem 1rem; text-align:center;
+      transition:transform .25s, box-shadow .25s;
+      text-decoration:none; color:inherit; display:block;
+    }
+    .member-card:hover { transform:translateY(-5px) rotate(-1deg); box-shadow:6px 6px 0 var(--pink); }
+    .avatar {
+      width:72px; height:72px; border-radius:50%;
+      margin:0 auto 1rem;
+      display:flex; align-items:center; justify-content:center;
+      font-family:'Fraunces',serif; font-size:1.7rem; font-weight:900; color:#fff;
+    }
+    .av1 { background: linear-gradient(135deg, var(--pink),    var(--plum)); }
+    .av2 { background: linear-gradient(135deg, var(--purple),  var(--lavender)); }
+    .av3 { background: linear-gradient(135deg, var(--yellow),  var(--salmon)); }
+    .av4 { background: linear-gradient(135deg, var(--plum),    var(--pink)); }
+    .av5 { background: linear-gradient(135deg, var(--salmon),  var(--yellow)); }
+    .av6 { background: linear-gradient(135deg, var(--lavender), var(--purple)); }
+    .member-card h4 { font-family:'Fraunces',serif; font-weight:700; font-size:1rem; margin-bottom:.25rem; }
+    .member-card .role { font-size:.78rem; color: var(--pink); font-weight:600; }
+    .li-link {
+      display:inline-block; margin-top:.8rem;
+      font-size:.75rem; font-weight:700;
+      color:var(--plum); text-decoration:none;
+    }
+    .li-link:hover { text-decoration:underline; }
+
+    .alumni-section { margin-top:3rem; }
+    .alumni-section h3 { font-family:'Fraunces',serif; font-size:1.3rem; margin-bottom:1.2rem; color:#777; }
+    .alumni-list { display:flex; flex-wrap:wrap; gap:.6rem; }
+    .alumni-chip {
+      background:#fff; border:2px solid #ddd; border-radius:30px;
+      padding:.45rem 1rem; font-size:.82rem; text-decoration:none; color:#555;
+      transition:border-color .2s, color .2s;
+    }
+    .alumni-chip:hover { border-color:var(--pink); color:var(--pink); }
+
+    /* ── CONTACTO ── */
+    #contacto {
+      padding:6rem 3rem; text-align:center;
+      background: var(--pink); color:#fff;
+      position:relative; overflow:hidden;
+    }
+    #contacto::after {
+      content:'💜'; position:absolute; right:3rem; bottom:-1rem;
+      font-size:14rem; opacity:.08; pointer-events:none;
+    }
+    #contacto .section-label { color:rgba(255,255,255,.65); }
+    #contacto h2   { color:#fff; margin-bottom:1rem; }
+    #contacto p    { font-size:1.1rem; opacity:.9; max-width:520px; margin:0 auto 2.5rem; line-height:1.75; }
+
+    .contact-links { display:flex; justify-content:center; gap:1.2rem; flex-wrap:wrap; }
+    .contact-link {
+      display:flex; align-items:center; gap:.6rem;
+      background:#fff; color:var(--pink);
+      padding:.85rem 1.8rem; border-radius:4px;
+      font-weight:700; font-size:.95rem;
+      text-decoration:none; border:2px solid #fff;
+      transition:transform .2s, box-shadow .2s;
+    }
+    .contact-link:hover { transform:translateY(-3px); box-shadow:0 8px 24px rgba(0,0,0,.2); }
+    .contact-link.ghost { background:transparent; color:#fff; }
+    .contact-link.ghost:hover { background:rgba(255,255,255,.1); }
+
+    /* ── FOOTER ── */
+    footer { background:var(--ink); color:#888; text-align:center; padding:2rem; font-size:.82rem; }
+    footer strong { color:var(--cream); }
+
+    /* ── REVEAL ── */
+    .reveal { opacity:0; transform:translateY(28px); transition:opacity .7s ease, transform .7s ease; }
+    .reveal.visible { opacity:1; transform:translateY(0); }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width:768px) {
+      nav { padding:1rem 1.5rem; }
+      nav ul { gap:1.2rem; }
+      #hero { grid-template-columns:1fr; padding:7rem 1.5rem 4rem; }
+      .hero-visual { display:none; }
+      .about-grid { grid-template-columns:1fr; gap:2rem; }
+      #nosotras, #proyectos, #equipo, #contacto { padding:4rem 1.5rem; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">
+    <img src="DebugLogo_negro.png" alt="Debug Colectiva" style="height:38px;display:block;" />
+  </div>
+  <ul>
+    <li><a href="#nosotras">Nosotras</a></li>
+    <li><a href="#proyectos">Proyectos</a></li>
+    <li><a href="#equipo">Equipo</a></li>
+    <li><a href="#contacto">Contacto</a></li>
+    <li><a href="convocatorias.html" class="nav-btn"> Convocatorias</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-blobs">
+    <div class="blob blob1"></div>
+    <div class="blob blob2"></div>
+    <div class="blob blob3"></div>
+  </div>
+  <div class="hero-text reveal">
+    <div class="hero-tag">🐞 Comunidad · Visibilidad · Ciencias Sociales</div>
+    <h1>Debugueamos<br><em>juntas</em></h1>
+    <p class="hero-desc">
+      Somos mujeres de Ciencias Sociales que visibilizan, documentan y comparten 
+      su investigación aplicada en espacios digitales abiertos.
+      Porque mostrar el trabajo también es un acto político.
+    </p>
+    <div class="hero-ctas">
+      <a href="#nosotras" class="btn btn-primary">Conoce la comunidad</a>
+      <a href="convocatorias.html" class="btn btn-secondary"> Convocatorias →</a>
+      <a href="https://github.com/DebugColectiva" target="_blank" class="btn btn-secondary">Ver en GitHub →</a>
+    </div>
+  </div>
+  <div class="hero-visual reveal">
+    <div class="hero-card">
+      <h3>Primera edición · 2025</h3>
+      <p>Resultados de nuestro programa piloto</p>
+      <div class="stat-grid">
+        <div class="stat"><div class="stat-num c-pink">+40</div><div class="stat-label">Postulaciones</div></div>
+        <div class="stat"><div class="stat-num c-teal">7</div><div class="stat-label">Participantes</div></div>
+        <div class="stat"><div class="stat-num c-yellow">6</div><div class="stat-label">Proyectos publicados</div></div>
+        <div class="stat"><div class="stat-num c-lav">💜</div><div class="stat-label">Red de cuidado</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- NOSOTRAS -->
+<section id="nosotras">
+  <div class="about-grid">
+    <div class="about-text reveal">
+      <div class="section-label">¿Quiénes somos?</div>
+      <h2>Una red de cuidado y visibilidad colectiva</h2>
+      <p>
+        Debug Colectiva es una comunidad que visibiliza, documenta y fortalece el trabajo de mujeres de 
+        ciencias sociales que trabajan con datos, programación e investigación aplicada.
+      </p>
+      <p>
+        Usamos espacios como GitHub y LinkedIn para mostrar proyectos reales: 
+        análisis de datos, trabajo de campo, diseño metodológico e investigación cualitativa.
+      </p>
+      <p>
+        Sabemos que mostrarse cuesta. Muchas veces hay dudas sobre si el trabajo es suficiente o miedo a la exposición.Por eso,
+        <strong style="color:var(--lavender)">Debug Colectiva no es solo un espacio técnico</strong>: 
+        Es una comunidad donde se aprende, se comparte y se construye visibilidad en conjunto.
+      </p>
+    </div>
+    <div class="reveal">
+      <div class="section-label">Nuestros valores</div>
+      <ul class="values-list">
+        <li><span class="icon vi1">🤝</span><div><strong>Cuidado mutuo</strong><span>Acompañamos sin juzgar y escuchamos sin imponer.</span></div></li>
+        <li><span class="icon vi2">🐛</span><div><strong>El error como parte del camino</strong><span>El error no se esconde: se comparte y se aprende.</span></div></li>
+        <li><span class="icon vi3">💜</span><div><strong>Validación de lo emocional</strong><span>Aprender algo nuevo genera dudas, frustración y avances. Todo eso es parte del proceso.</span></div></li>
+        <li><span class="icon vi4">🌱</span><div><strong>Autonomía acompañada</strong><span>Cada una avanza a su ritmo, pero no sola.</span></div></li>
+        <li><span class="icon vi5">⚡</span><div><strong>Valor de lo cotidiano</strong><span>No hace falta que todo esté perfecto para compartirlo. Lo que haces ya tiene valor.</span></div></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- PROYECTOS -->
+<section id="proyectos">
+  <div class="projects-header reveal">
+    <div>
+      <div class="section-label">Repositorios</div>
+      <h2>Nuestros proyectos</h2>
+    </div>
+    <a href="https://github.com/DebugColectiva" target="_blank" class="btn btn-secondary">Ver todos →</a>
+  </div>
+  <div class="projects-grid">
+    <div class="project-card reveal">
+      <div class="accent-bar"></div>
+      <div class="project-emoji">📘</div>
+      <h3>Guía Introductoria GitHub</h3>
+      <p>Guía paso a paso para que mujeres de Ciencias Sociales suban sus proyectos a GitHub por primera vez. Sin intimidaciones, con mucha claridad.</p>
+      <a href="https://github.com/DebugColectiva/Gu-a_Introductoria_GitHub" target="_blank">Ver repositorio →</a>
+    </div>
+    <div class="project-card reveal">
+      <div class="accent-bar"></div>
+      <div class="project-emoji">🧭</div>
+      <h3>Mentoría Debug Colectiva</h3>
+      <p>Materiales y recursos diseñados para el programa de mentoría. Documentación del proceso, guías y aprendizajes compartidos.</p>
+      <a href="https://github.com/DebugColectiva/Mentoria_debug_colectiva" target="_blank">Ver repositorio →</a>
+    </div>
+    <div class="project-card reveal">
+      <div class="accent-bar"></div>
+      <div class="project-emoji">📚</div>
+      <h3>Memoria 2025</h3>
+      <p>La memoria de nuestro primer año: logros, aprendizajes y las historias de quienes participaron en la primera edición del programa.</p>
+      <a href="https://github.com/DebugColectiva/Memoria_2025_Debug-Colectiva" target="_blank">Ver repositorio →</a>
+    </div>
+    <div class="project-card reveal">
+      <div class="accent-bar"></div>
+      <div class="project-emoji">🐞</div>
+      <h3>DebugColectiva</h3>
+      <p>El repositorio principal de la organización. Aquí encontrarás quiénes somos, qué hacemos y cómo puedes sumarte a la comunidad.</p>
+      <a href="https://github.com/DebugColectiva/DebugColectiva" target="_blank">Ver repositorio →</a>
+    </div>
+  </div>
+</section>
+
+<!-- EQUIPO -->
+<section id="equipo">
+  <div class="team-intro reveal">
+    <div class="section-label">El equipo</div>
+    <h2>Impulsada por mujeres</h2>
+    <p>Con experiencia en datos, políticas públicas, investigación, tecnología, gestión cultural y género. Debug Colectiva es impulsada por todas ellas por igual.</p>
+  </div>
+  <div class="team-grid">
+    <a href="https://www.linkedin.com/in/carolina-saavedra-pena/" target="_blank" class="member-card reveal">
+      <div class="avatar av1">CS</div>
+      <h4>Carolina Saavedra</h4>
+      <span class="role">Directora de Comunidad</span>
+      <div class="li-link">LinkedIn →</div>
+    </a>
+    <a href="https://www.linkedin.com/in/greta-gongora/" target="_blank" class="member-card reveal">
+      <div class="avatar av2">GG</div>
+      <h4>Greta Góngora</h4>
+      <span class="role">Directora de Formación Técnica y Metodología</span>
+      <div class="li-link">LinkedIn →</div>
+    </a>
+    <a href="https://www.linkedin.com/in/estelita-landa-oliva-43167b385/" target="_blank" class="member-card reveal">
+      <div class="avatar av3">EL</div>
+      <h4>Estelita Landa</h4>
+      <span class="role">Directora de Investigación</span>
+      <div class="li-link">LinkedIn →</div>
+    </a>
+    <a href="https://www.linkedin.com/in/yeny-rocsana-cube%C3%B1os-l%C3%B3pez-b60315230/" target="_blank" class="member-card reveal">
+      <div class="avatar av4">RC</div>
+      <h4>Rocsana Cubeños</h4>
+      <span class="role">Directora de Alianzas Estratégicas</span>
+      <div class="li-link">LinkedIn →</div>
+    </a>
+    <a href="https://www.linkedin.com/in/rosa-angela-rojas-huaman/" target="_blank" class="member-card reveal">
+      <div class="avatar av5">RR</div>
+      <h4>Rosa Rojas</h4>
+      <span class="role">Directora de Investigación</span>
+      <div class="li-link">LinkedIn →</div>
+    </a>
+    <a href="https://www.linkedin.com/in/melissanavarroreyes/" target="_blank" class="member-card reveal">
+      <div class="avatar av6">MN</div>
+      <h4>Melissa Navarro</h4>
+      <span class="role">Directora de Género</span>
+      <div class="li-link">LinkedIn →</div>
+    </a>
+  </div>
+</section>
+
+<!-- CONTACTO -->
+<section id="contacto">
+  <div class="reveal">
+    <div class="section-label">¿Quieres sumarte?</div>
+    <h2>Únete a Debug Colectiva</h2>
+    <p>
+      Este es un espacio abierto, cuidado y sin competencia.
+      Puedes sumarte desde donde estés y con el tiempo que tengas.
+      No necesitas saber programar "bien", necesitas ganas de aprender y de no hacerlo sola.
+    </p>
+    <div class="contact-links">
+      <a href="https://www.linkedin.com/company/debug-colectiva/" target="_blank" class="contact-link">💼 LinkedIn</a>
+      <a href="https://github.com/DebugColectiva" target="_blank" class="contact-link ghost">🐙 GitHub</a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p>Hecho con 💜 por <strong>Debug Colectiva</strong> · <em>#DebugColectiva #MujeresEnTecnología #CienciasSociales</em></p>
+</footer>
+
+<script>
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        setTimeout(() => entry.target.classList.add('visible'), 80);
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.12 });
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
