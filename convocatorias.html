@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Convocatorias · Debug Colectiva</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,400;0,700;0,900;1,400&family=DM+Sans:wght@300;400;500;700&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --pink:     #D81B60;
+      --yellow:   #F9C228;
+      --lavender: #B39DDB;
+      --babyblue: #BBDEFB;
+      --black:    #212121;
+      --lilac:    #CE93D8;
+      --salmon:   #EF9A9A;
+      --plum:     #4A148C;
+      --purple:   #9C27B0;
+      --ink:      #212121;
+      --cream:    #FDFAF3;
+      --soft:     #F8F4FF;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: "DM Sans", sans-serif;
+      background: var(--cream);
+      color: var(--ink);
+      overflow-x: hidden;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 1rem 3rem;
+      background: rgba(253,250,243,0.92);
+      backdrop-filter: blur(14px);
+      border-bottom: 2.5px solid var(--ink);
+    }
+    .nav-logo img { height: 36px; display: block; }
+    .nav-right { display: flex; align-items: center; gap: 2rem; }
+    nav ul { list-style: none; display: flex; gap: 2rem; }
+    nav ul a {
+      text-decoration: none; color: var(--ink);
+      font-weight: 600; font-size: .92rem;
+      position: relative; padding-bottom: 3px;
+    }
+    nav ul a::after {
+      content: ""; position: absolute; bottom: 0; left: 0;
+      width: 0; height: 2.5px; background: var(--pink);
+      transition: width .3s;
+    }
+    nav ul a:hover::after { width: 100%; }
+    .nav-home {
+      font-size: .82rem; font-weight: 700;
+      color: var(--pink); text-decoration: none;
+      border: 2px solid var(--pink);
+      padding: .35rem .9rem; border-radius: 3px;
+      transition: background .2s, color .2s;
+    }
+    .nav-home:hover { background: var(--pink); color: #fff; }
+
+    /* ── HERO ── */
+    #hero {
+      min-height: 52vh;
+      padding: 9rem 3rem 5rem;
+      display: flex; flex-direction: column;
+      justify-content: center;
+      position: relative; overflow: hidden;
+      background: var(--ink);
+      color: var(--cream);
+    }
+
+    .hero-blobs { position: absolute; inset: 0; pointer-events: none; z-index: 0; }
+    .blob {
+      position: absolute; border-radius: 50%;
+      filter: blur(80px); opacity: .22;
+      animation: drift 12s ease-in-out infinite alternate;
+    }
+    .blob1 { width:500px; height:500px; background:var(--pink);    top:-120px; right:-100px; animation-delay:0s; }
+    .blob2 { width:360px; height:360px; background:var(--purple);  bottom:-60px; left:-60px; animation-delay:-5s; }
+    .blob3 { width:280px; height:280px; background:var(--yellow);  top:30%; left:35%;        animation-delay:-9s; }
+
+    @keyframes drift {
+      from { transform: translate(0,0) scale(1); }
+      to   { transform: translate(25px,15px) scale(1.06); }
+    }
+
+    .hero-inner { position: relative; z-index: 1; max-width: 700px; }
+    .hero-tag {
+      display: inline-block;
+      background: var(--pink); color: #fff;
+      font-size: .72rem; font-weight: 700;
+      letter-spacing: .13em; text-transform: uppercase;
+      padding: .38rem 1rem; border-radius: 2px;
+      margin-bottom: 1.5rem;
+    }
+    h1 {
+      font-family: "Fraunces", serif;
+      font-size: clamp(2.8rem, 5.5vw, 5rem);
+      font-weight: 900; line-height: 1.05;
+      margin-bottom: 1.2rem;
+    }
+    h1 em {
+      font-style: italic; color: var(--yellow);
+      position: relative;
+    }
+    .hero-desc {
+      font-size: 1.1rem; line-height: 1.75;
+      color: #ccc; max-width: 560px;
+    }
+
+    /* ── CARDS SECTION ── */
+    #convocatorias {
+      padding: 5rem 3rem 6rem;
+    }
+
+    .cards-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 2rem;
+      margin-top: 2.5rem;
+    }
+
+    .conv-card {
+      border: 2.5px solid var(--ink);
+      border-radius: 16px;
+      overflow: hidden;
+      background: #fff;
+      display: flex; flex-direction: column;
+      transition: transform .25s, box-shadow .25s;
+    }
+    .conv-card:hover {
+      transform: translateY(-7px);
+      box-shadow: 8px 8px 0 var(--ink);
+    }
+
+    /* Franja de color superior — oculta, la imagen ya tiene diseño propio */
+    .card-stripe { display: none; }
+
+    /* Área de imagen */
+    .card-img {
+      width: 100%;
+      height: 220px;
+      background: var(--soft);
+      overflow: hidden;
+      display: block;
+      border-radius: 13px 13px 0 0;
+    }
+    .card-img img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      object-position: center center;
+      display: block;
+      transition: transform .4s ease;
+    }
+    .conv-card:hover .card-img img {
+      transform: scale(1.04);
+    }
+
+    /* Cuerpo de la card */
+    .card-body {
+      padding: 2rem 2rem 1.5rem;
+      display: flex; flex-direction: column; flex: 1;
+    }
+
+    .card-badge {
+      display: inline-block;
+      font-size: .68rem; font-weight: 700;
+      letter-spacing: .12em; text-transform: uppercase;
+      padding: .28rem .75rem; border-radius: 30px;
+      margin-bottom: 1rem; align-self: flex-start;
+    }
+    .badge-pink   { background: #FCE4EC; color: var(--pink); }
+    .badge-purple { background: #F3E5F5; color: var(--purple); }
+    .badge-plum   { background: #EDE7F6; color: var(--plum); }
+
+    .card-body h2 {
+      font-family: "Fraunces", serif;
+      font-size: 1.4rem; font-weight: 900; line-height: 1.2;
+      margin-bottom: .8rem;
+    }
+    .card-body p {
+      font-size: .9rem; color: #555; line-height: 1.7;
+      flex: 1; margin-bottom: 1.5rem;
+    }
+
+    .card-cta {
+      display: inline-flex; align-items: center; gap: .5rem;
+      padding: .8rem 1.6rem;
+      font-weight: 700; font-size: .9rem;
+      text-decoration: none;
+      border-radius: 4px;
+      transition: transform .2s, box-shadow .2s;
+      align-self: flex-start;
+    }
+    .card-cta:hover { transform: translateY(-2px); box-shadow: 0 6px 18px rgba(0,0,0,.14); }
+    .cta-pink   { background: var(--pink);   color: #fff; }
+    .cta-purple { background: var(--purple); color: #fff; }
+    .cta-plum   { background: var(--plum);   color: #fff; }
+    .cta-arrow  { font-size: 1rem; transition: transform .2s; }
+    .card-cta:hover .cta-arrow { transform: translateX(4px); }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--ink); color: #888;
+      text-align: center; padding: 2rem; font-size: .82rem;
+      border-top: 2.5px solid var(--pink);
+    }
+    footer strong { color: var(--cream); }
+    footer a { color: var(--lavender); text-decoration: none; }
+    footer a:hover { text-decoration: underline; }
+
+    /* ── REVEAL ── */
+    .reveal { opacity:0; transform:translateY(28px); transition:opacity .7s ease, transform .7s ease; }
+    .reveal.visible { opacity:1; transform:translateY(0); }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 768px) {
+      nav { padding: 1rem 1.5rem; }
+      nav ul { gap: 1rem; }
+      #hero { padding: 7rem 1.5rem 3.5rem; }
+      #convocatorias { padding: 3.5rem 1.5rem 4rem; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">
+    <a href="index.html">
+      <img src="DebugLogo_negro.png" alt="Debug Colectiva" />
+    </a>
+  </div>
+  <div class="nav-right">
+    <ul>
+      <li><a href="#convocatorias">Convocatorias</a></li>
+    </ul>
+    <a href="index.html" class="nav-home">← Inicio</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-blobs">
+    <div class="blob blob1"></div>
+    <div class="blob blob2"></div>
+    <div class="blob blob3"></div>
+  </div>
+  <div class="hero-inner reveal">
+    <div class="hero-tag">🐞 Únete · Participa · Comparte</div>
+    <h1>Convoca&shy;torias<br><em>abiertas</em></h1>
+    <p class="hero-desc">
+      Aquí encontrarás todas las formas de sumarte a Debug Colectiva: 
+      como voluntaria, compartiendo tu experiencia o siendo parte de nuestro 
+      programa universitario regional.
+    </p>
+  </div>
+</section>
+
+<!-- CARDS -->
+<section id="convocatorias">
+  <div class="cards-grid">
+
+    <!-- CARD 1: Voluntarias -->
+    <div class="conv-card reveal">
+      <div class="card-stripe stripe-pink"></div>
+      <div class="card-img">
+        <img src="imagen_voluntarias.png" alt="Voluntarias" />
+      </div>
+      <div class="card-body">
+        <span class="card-badge badge-pink">Voluntariado</span>
+        <h2>Convocatoria Voluntarias</h2>
+        <p>
+          ¿Quieres ser parte del equipo que hace posible Debug Colectiva? 
+          Buscamos mujeres con ganas de acompañar, investigar y construir 
+          comunidad. Tu tiempo y experiencia pueden marcar la diferencia.
+        </p>
+        <!-- Reemplaza # con el link de tu formulario Google -->
+        <a href="https://forms.gle/bZkMB1diaRmNepUP9" target="_blank" class="card-cta cta-pink">
+          Postular ahora <span class="cta-arrow">→</span>
+        </a>
+      </div>
+    </div>
+
+    <!-- CARD 2: Encuesta -->
+    <div class="conv-card reveal">
+      <div class="card-stripe stripe-purple"></div>
+      <div class="card-img">
+        <img src="imagen_100Mujeres.png" alt="100 Mujeres" />
+      </div>
+      <div class="card-body">
+        <span class="card-badge badge-purple">Encuesta</span>
+        <h2>Encuesta 100 Mujeres</h2>
+        <p>
+          Queremos conocer las experiencias de mujeres profesionales en Ciencias Sociales 
+          en espacios digitales y tecnológicos. Tu voz nos ayuda a construir 
+          una comunidad que responda a necesidades reales.
+        </p>
+        <!-- Reemplaza # con el link de tu formulario Google -->
+        <a href="#" target="_blank" class="card-cta cta-purple">
+          Próximamente <span class="cta-arrow">→</span>
+        </a>
+      </div>
+    </div>
+
+    <!-- CARD 3: Programa universitario -->
+    <div class="conv-card reveal">
+      <div class="card-stripe stripe-plum"></div>
+      <div class="card-img">
+        <img src="imagen_programa.png" alt="Programa Universitario Regional" />
+      </div>
+      <div class="card-body">
+        <span class="card-badge badge-plum">Programa</span>
+        <h2>Convocatoria Programa Universitario Regional</h2>
+        <p>
+          Próximamente abrimos nuestro programa para universidades públicas 
+          de provincia. Si eres estudiante o docente y quieres llevar Debug 
+          Colectiva a tu institución, este espacio es para ti.
+        </p>
+        <!-- Reemplaza # con el link de tu formulario Google -->
+        <a href="#" target="_blank" class="card-cta cta-plum">
+          Próximamente <span class="cta-arrow">→</span>
+        </a>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p>
+    <strong>Debug Colectiva</strong> · 
+    <a href="index.html">← Volver al inicio</a> · 
+    <a href="https://www.linkedin.com/company/debug-colectiva/" target="_blank">LinkedIn</a> · 
+    <a href="https://github.com/DebugColectiva" target="_blank">GitHub</a>
+  </p>
+  <p style="margin-top:.5rem"><em>#DebugColectiva #MujeresEnTecnología #CienciasSociales</em></p>
+</footer>
+
+<script>
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        setTimeout(() => entry.target.classList.add("visible"), 80);
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1 });
+  document.querySelectorAll(".reveal").forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
