@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Debug Colectiva 🐞</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,400;0,700;0,900;1,400&family=DM+Sans:wght@300;400;500;700&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="styles.css"/>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">
+    <img src="DebugLogo_negro.png" alt="Debug Colectiva" style="height:38px;display:block;" />
+  </div>
+  <button class="nav-hamburger" id="hamburger" aria-label="Menú">
+    <span></span><span></span><span></span>
+  </button>
+  <ul id="nav-menu">
+    <li><a href="#nosotras">Nosotras</a></li>
+    <li><a href="#proyectos">Proyectos</a></li>
+    <li><a href="#equipo">Equipo</a></li>
+    <li><a href="#contacto">Contacto</a></li>
+    <li><a href="portafolios.html">Portafolios</a></li>
+    <li><a href="convocatorias.html" class="nav-btn"> Convocatorias</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-blobs">
+    <div class="blob blob1"></div>
+    <div class="blob blob2"></div>
+    <div class="blob blob3"></div>
+  </div>
+  <div class="hero-text reveal">
+    <div class="hero-tag">🐞 Comunidad · Visibilidad · Ciencias Sociales</div>
+    <h1>Debug - ando<br><em>juntas</em></h1>
+    <p class="hero-desc">
+      Somos una comunidad de mujeres de Ciencias Sociales que documenta, visibiliza y comparte su trabajo en espacios digitales abiertos. 
+      Porque mostrar lo que hacemos también es una forma de ocupar espacio, producir conocimiento y ampliar referentes para otras.
+    </p>
+    <div class="hero-ctas">
+      <a href="#nosotras" class="btn btn-primary">Conoce la comunidad</a>
+      <a href="convocatorias.html" class="btn btn-secondary"> Convocatorias →</a>
+      <a href="https://github.com/DebugColectiva" target="_blank" class="btn btn-secondary">Ver en GitHub →</a>
+    </div>
+  </div>
+  <div class="hero-visual reveal">
+    <div class="hero-card">
+      <h3>Programa Universitario Regional</h3>
+      <a href="https://forms.gle/5WENkNLC3ZwE24HG7" target="_blank">Postula aquí.</a> 
+      <p>Cierre de convocatoria: 29 de junio.</p>
+      <div class="stat-grid">
+        <div class="stat"><div class="stat-num c-pink">12</div><div class="stat-label">Cupos disponibles</div></div>
+        <div class="stat"><div class="stat-num c-teal">6</div><div class="stat-label">Semanas intensivas</div></div>
+        <div class="stat"><div class="stat-num c-yellow">3</div><div class="stat-label">Espacios Colaborativos</div></div>
+        <div class="stat"><div class="stat-num c-lav">💜</div><div class="stat-label">Construcción de comunidad</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- NOSOTRAS -->
+<section id="nosotras">
+  <div class="about-grid">
+    <div class="about-text reveal">
+      <div class="section-label">¿Quiénes somos?</div>
+      <h2>Una red de cuidado y visibilidad colectiva</h2>
+      <p>
+        Debug Colectiva es una comunidad que visibiliza, documenta y fortalece el trabajo de mujeres de 
+        ciencias sociales que trabajan con datos, programación e investigación aplicada.
+      </p>
+      <p>
+        Usamos espacios como GitHub y LinkedIn para mostrar proyectos reales: 
+        análisis de datos, trabajo de campo, diseño metodológico e investigación cualitativa.
+      </p>
+      <p>
+        Sabemos que mostrarse no siempre es fácil, pero no solo por razones individuales. También influyen desigualdades que han hecho que el trabajo de muchas mujeres tenga menos visibilidad, menos reconocimiento y menos espacio en entornos técnicos y digitales. 
+        <strong style="color:var(--lavender)">Debug Colectiva no es solo un espacio técnico</strong>, 
+        sino una comunidad donde se aprende, se comparte y se construye visibilidad en conjunto.
+      </p>
+    </div>
+    <div class="reveal">
+      <div class="section-label">Nuestros valores</div>
+      <ul class="values-list">
+        <li><span class="icon vi1">🤝</span><div><strong>Cuidado mutuo</strong><span>Acompañamos sin juzgar y escuchamos sin imponer.</span></div></li>
+        <li><span class="icon vi2">🐛</span><div><strong>El error como parte del camino</strong><span>El error no se esconde: se comparte y se aprende.</span></div></li>
+        <li><span class="icon vi3">💜</span><div><strong>Equidad</strong><span>Reconocemos que no todas partimos de las mismas condiciones para aprender y hacernos visibles.</span></div></li>
+        <li><span class="icon vi4">🌱</span><div><strong>Autonomía acompañada</strong><span>Cada una avanza a su ritmo, pero no sola.</span></div></li>
+        <li><span class="icon vi5">⚡</span><div><strong>Valor de lo cotidiano</strong><span>No hace falta que todo esté perfecto para compartirlo. Lo que haces ya tiene valor.</span></div></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- PROYECTOS -->
+<section id="proyectos">
+  <div class="projects-header reveal">
+    <div>
+      <div class="section-label">Repositorios</div>
+      <h2>Nuestros proyectos</h2>
+    </div>
+    <a href="https://github.com/DebugColectiva" target="_blank" class="btn btn-secondary">Ver todos →</a>
+  </div>
+  <div class="projects-grid">
+    <div class="project-card reveal">
+      <div class="accent-bar"></div>
+      <div class="project-emoji">📘</div>
+      <h3>Guía Introductoria GitHub</h3>
+      <p>Guía paso a paso para que mujeres de Ciencias Sociales suban sus proyectos a GitHub por primera vez. Sin intimidaciones, con mucha claridad.</p>
+      <a href="https://github.com/DebugColectiva/Gu-a_Introductoria_GitHub" target="_blank">Ver repositorio →</a>
+    </div>
+    <div class="project-card reveal">
+      <div class="accent-bar"></div>
+      <div class="project-emoji">📚</div>
+      <h3>Memoria 2025</h3>
+      <p>La memoria de nuestro primer año: logros, aprendizajes y las historias de quienes participaron en la primera edición del programa.</p>
+      <a href="https://github.com/DebugColectiva/Memoria_2025_Debug-Colectiva" target="_blank">Ver repositorio →</a>
+    </div>
+    <div class="project-card reveal">
+      <div class="accent-bar"></div>
+      <div class="project-emoji">🐞</div>
+      <h3>DebugColectiva</h3>
+      <p>El repositorio principal de la organización. Aquí encontrarás quiénes somos, qué hacemos y cómo puedes sumarte a la comunidad.</p>
+      <a href="https://github.com/DebugColectiva/DebugColectiva" target="_blank">Ver repositorio →</a>
+    </div>
+  </div>
+</section>
+
+
+<!-- EQUIPO -->
+<section id="equipo">
+  <div class="team-intro reveal">
+    <div class="section-label">El equipo</div>
+    <h2>Impulsada por mujeres</h2>
+    <p>Con experiencia en datos, políticas públicas, investigación, tecnología, gestión cultural y género, Debug Colectiva es impulsada de manera colectiva por mujeres con trayectorias diversas.</p>
+  </div>
+  <div class="team-grid">
+    <a href="https://www.linkedin.com/in/carolina-saavedra-pena/" target="_blank" class="member-card reveal">
+      <div class="avatar av1">CS</div>
+      <h4>Carolina Saavedra</h4>
+      <span class="role">Directora de Comunidad</span>
+      <div class="li-link">LinkedIn →</div>
+    </a>
+    <a href="https://www.linkedin.com/in/greta-gongora/" target="_blank" class="member-card reveal">
+      <div class="avatar av2">GG</div>
+      <h4>Greta Góngora</h4>
+      <span class="role">Directora de Formación Técnica y Metodología</span>
+      <div class="li-link">LinkedIn →</div>
+    </a>
+    <a href="https://www.linkedin.com/in/estelita-landa-oliva-43167b385/" target="_blank" class="member-card reveal">
+      <div class="avatar av3">EL</div>
+      <h4>Estelita Landa</h4>
+      <span class="role">Directora de Investigación</span>
+      <div class="li-link">LinkedIn →</div>
+    </a>
+    <a href="https://www.linkedin.com/in/yeny-rocsana-cube%C3%B1os-l%C3%B3pez-b60315230/" target="_blank" class="member-card reveal">
+      <div class="avatar av4">RC</div>
+      <h4>Rocsana Cubeños</h4>
+      <span class="role">Directora de Alianzas Estratégicas</span>
+      <div class="li-link">LinkedIn →</div>
+    </a>
+    <a href="https://www.linkedin.com/in/rosa-angela-rojas-huaman/" target="_blank" class="member-card reveal">
+      <div class="avatar av5">RR</div>
+      <h4>Rosa Rojas</h4>
+      <span class="role">Directora de Investigación</span>
+      <div class="li-link">LinkedIn →</div>
+    </a>
+    <a href="https://www.linkedin.com/in/melissanavarroreyes/" target="_blank" class="member-card reveal">
+      <div class="avatar av6">MN</div>
+      <h4>Melissa Navarro</h4>
+      <span class="role">Directora de Género</span>
+      <div class="li-link">LinkedIn →</div>
+    </a>
+  </div>
+</section>
+
+<!-- CONTACTO -->
+<section id="contacto">
+  <div class="reveal">
+    <div class="section-label">¿Quieres sumarte?</div>
+    <h2>Únete a Debug Colectiva</h2>
+    <p>
+      Este es un espacio abierto, cuidado y sin competencia.
+       No necesitas saber programar “bien”; necesitas disposición para aprender, compartir y sostener tu proceso en comunidad.
+    </p>
+    <div class="contact-links">
+      <a href="https://www.linkedin.com/company/debug-colectiva/" target="_blank" class="contact-link">💼 LinkedIn</a>
+      <a href="https://github.com/DebugColectiva" target="_blank" class="contact-link ghost">🐙 GitHub</a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p>Hecho con 💜 por <strong>Debug Colectiva</strong> · <em>#DebugColectiva #MujeresEnTecnología #CienciasSociales</em></p>
+</footer>
+
+<script>
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        setTimeout(() => entry.target.classList.add('visible'), 80);
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.12 });
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
+
+<script>
+  const hamburger = document.getElementById('hamburger');
+  const navMenu   = document.getElementById('nav-menu');
+  hamburger.addEventListener('click', () => {
+    hamburger.classList.toggle('open');
+    navMenu.classList.toggle('open');
+  });
+  // cerrar al hacer click en un link
+  navMenu.querySelectorAll('a').forEach(a => {
+    a.addEventListener('click', () => {
+      hamburger.classList.remove('open');
+      navMenu.classList.remove('open');
+    });
+  });
+</script>
+</body>
+</html>
