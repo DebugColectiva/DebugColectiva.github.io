@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Proyecto IA · En construcción · Debug Colectiva</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,400;0,700;0,900;1,400&family=DM+Sans:wght@300;400;500;700&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="proyecto-ia_alt.css"/>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">
+    <a href="index.html">
+      <img src="DebugLogo_negro.png" alt="Debug Colectiva" />
+    </a>
+  </div>
+  <div class="nav-right">
+    <ul>
+      <li><a href="proyecto-ia_alt.html">Portafolios</a></li>
+      <li><a href="convocatorias.html" class="nav-btn"> Convocatorias</a></li>
+    </ul>
+    <a href="index.html" class="nav-home">← Inicio</a>
+  </div>
+</nav>
+
+<!-- HERO EN CONSTRUCCIÓN -->
+<section id="hero">
+  <div class="hero-blobs">
+    <div class="blob blob1"></div>
+    <div class="blob blob2"></div>
+    <div class="blob blob3"></div>
+  </div>
+
+  <div class="hero-inner reveal">
+    <div class="hero-tag"> Proyectos DEBUG 🐞</div>
+    <h1>En <em>construcción</em></h1>
+    <p class="hero-desc">
+      Estamos armando este proyecto con mucho cariño. Muy pronto encontrarás
+      aquí todo el trabajo del equipo. Mientras tanto, nuestro tractor
+      se encarga de dejar el terreno listo. 🚜
+    </p>
+  </div>
+
+  <!-- ESCENA DEL TRACTOR -->
+  <div class="scene">
+    <div class="ground"></div>
+
+    <div class="tractor-wrap">
+      <div class="dust d1"></div>
+      <div class="dust d2"></div>
+      <div class="dust d3"></div>
+
+      <svg class="tractor" viewBox="0 0 220 130" xmlns="http://www.w3.org/2000/svg">
+        <!-- sombra -->
+        <ellipse cx="110" cy="122" rx="95" ry="7" fill="#000" opacity="0.12"/>
+
+        <!-- humo -->
+        <circle class="smoke s1" cx="150" cy="18" r="6" fill="#e8e8e8"/>
+        <circle class="smoke s2" cx="156" cy="10" r="8" fill="#f2f2f2"/>
+        <circle class="smoke s3" cx="164" cy="0" r="10" fill="#fafafa"/>
+
+        <!-- chimenea -->
+        <rect x="144" y="20" width="10" height="26" rx="2" fill="#4A148C"/>
+
+        <!-- cuerpo trasero (cabina) -->
+        <rect x="95" y="30" width="62" height="46" rx="6" fill="#D81B60"/>
+        <rect x="104" y="38" width="26" height="22" rx="3" fill="#BBDEFB"/>
+        <!-- techo cabina -->
+        <rect x="90" y="26" width="72" height="10" rx="4" fill="#4A148C"/>
+
+        <!-- motor delantero -->
+        <rect x="30" y="54" width="70" height="26" rx="5" fill="#F9C228"/>
+        <rect x="18" y="60" width="18" height="16" rx="4" fill="#F9C228"/>
+
+        <!-- eje trasero -->
+        <rect x="88" y="74" width="70" height="10" fill="#212121"/>
+
+        <!-- rueda grande trasera -->
+        <g class="wheel-big">
+          <circle cx="150" cy="95" r="32" fill="#212121"/>
+          <circle cx="150" cy="95" r="20" fill="#555"/>
+          <circle cx="150" cy="95" r="7" fill="#9C27B0"/>
+          <g stroke="#212121" stroke-width="5">
+            <line x1="150" y1="75" x2="150" y2="115"/>
+            <line x1="130" y1="95" x2="170" y2="95"/>
+            <line x1="136" y1="81" x2="164" y2="109"/>
+            <line x1="136" y1="109" x2="164" y2="81"/>
+          </g>
+        </g>
+
+        <!-- rueda chica delantera -->
+        <g class="wheel-small">
+          <circle cx="48" cy="103" r="17" fill="#212121"/>
+          <circle cx="48" cy="103" r="9" fill="#9C27B0"/>
+        </g>
+      </svg>
+    </div>
+
+    <!-- letrero -->
+    <div class="sign reveal">
+      <div class="sign-post"></div>
+      <div class="sign-board">🚧 Vuelve pronto 🚧</div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p>
+    <strong>Debug Colectiva</strong> ·
+    <a href="index.html">← Volver al inicio</a> ·
+    <a href="https://www.linkedin.com/company/debug-colectiva/" target="_blank">LinkedIn</a> ·
+    <a href="https://github.com/DebugColectiva" target="_blank">GitHub</a>
+  </p>
+</footer>
+
+<script>
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        setTimeout(() => entry.target.classList.add("visible"), 80);
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1 });
+  document.querySelectorAll(".reveal").forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
